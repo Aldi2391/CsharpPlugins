@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedModelUnloader", "SharedModelUnloader\SharedModelUnloader.csproj", "{092C3430-04D4-4187-A35C-E178915EDE40}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{092C3430-04D4-4187-A35C-E178915EDE40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{092C3430-04D4-4187-A35C-E178915EDE40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{092C3430-04D4-4187-A35C-E178915EDE40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{092C3430-04D4-4187-A35C-E178915EDE40}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5AFEB765-E92E-4269-85FA-D7C45F3DED4D}
+	EndGlobalSection
+EndGlobal
