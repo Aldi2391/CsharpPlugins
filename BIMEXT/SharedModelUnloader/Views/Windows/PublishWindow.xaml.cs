@@ -23,5 +23,10 @@ namespace SharedModelUnloader.Views.Windows
         {
             InitializeComponent();
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

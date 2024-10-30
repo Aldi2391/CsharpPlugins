@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SharedModelUnloader.Views.Windows"
         mc:Ignorable="d"
-        Title="PublishWindow" Height="450" Width="800">
+        Title="Публикация моделей" Height="400" Width="300
+        ">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Vertical"
+                    Margin="5">
+            <TextBlock Text="Введите ФИО:"/>
+            <TextBox Height="35"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Vertical"
+                    Margin="5" Grid.RowSpan="2">
+            <TextBlock Text="Краткое описание изменений в текущей версии:"/>
+            <Grid Height="Auto" VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBox Grid.Row="0"
+                         VerticalAlignment="Stretch"
+                         HorizontalAlignment="Stretch"
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True" TextChanged="TextBox_TextChanged"/>
+            </Grid>
+        </StackPanel>
+
+        <Button Grid.Row="2"
+                Height="35" Width="120"
+                Content="Опубликовать"/>
     </Grid>
 </Window>

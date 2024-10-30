@@ -5,8 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SharedModelUnloader.Views.Windows"
         mc:Ignorable="d"
-        Title="AcceptChangesWindow" Height="450" Width="800">
+        Title="Принятие изменений" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Content="Назад"
+                    Width="120"
+                    Height="35"
+                    HorizontalAlignment="Center"
+                    />
+            <Button Grid.Column="1"
+                    Content="Выбрать все"
+                    Width="120"
+                    Height="35"
+                    HorizontalAlignment="Center"
+                    />
+            <Button Grid.Column="2"
+                    Content="Сбросить выбор"
+                    Width="120"
+                    Height="35"
+                    HorizontalAlignment="Center"
+                    />
+            <Button Grid.Column="3"
+                    Content="Обновить выбранное в текущей модели"
+                    Width="250"
+                    Height="35"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 10 0"
+                    />
+        </Grid>
+        <DataGrid Grid.Row="0">
+            
+        </DataGrid>
     </Grid>
 </Window>
