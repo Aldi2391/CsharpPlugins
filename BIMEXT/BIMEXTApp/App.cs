@@ -17,7 +17,7 @@ namespace BIMEXTApp
             string tabName = "BIMEXT";
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
             string thisAssemblyFolder = Path.GetDirectoryName(thisAssemblyPath);
-            string sharedModelUnloaderAssemblyPath = Path.Combine(thisAssemblyFolder, "SharedModelUnloader.dll");
+            string sharedModelUnloaderAssemblyPath = Path.Combine(thisAssemblyFolder, $"SharedModelUnloader.dll");
 
             AddRibbonTab(application, tabName);
 
@@ -25,10 +25,10 @@ namespace BIMEXTApp
 
             AddButton(
                 application,
-                thisAssemblyPath,
+                sharedModelUnloaderAssemblyPath,
                 panelExt,
                 "Выгрузка моделей",
-                "SharedModelUnloader.StartCommand",
+                "SharedModelUnloader.Infrastructure.Commands.StartCommand",
                 "Выгрузка и обновления моделей в зону shared",
                 "sharedModelUnloader.png"
             );

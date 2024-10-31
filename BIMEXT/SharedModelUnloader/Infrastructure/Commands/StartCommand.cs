@@ -13,8 +13,11 @@ namespace SharedModelUnloader.Infrastructure.Commands
             UIApplication uiApp = commandData.Application;
             try
             {
-                var sharedModelUnloaderWindow = new MainWindow();
-                sharedModelUnloaderWindow.DataContext = new MainWindowViewModel(uiApp);
+                var sharedModelUnloaderWindow = new MainWindow
+                {
+                    DataContext = new MainWindowViewModel(uiApp)
+                };
+                sharedModelUnloaderWindow.ShowDialog();
                 return Result.Succeeded;
             }
             catch
