@@ -1,0 +1,6 @@
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\x64\R2020\BIMEXTApp.dll
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\x64\R2020\BIMEXTApp.pdb
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\obj\x64\R2020\BIMEXTApp.csproj.AssemblyReference.cache
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\obj\x64\R2020\BIMEXTApp.csproj.CoreCompileInputs.cache
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\obj\x64\R2020\BIMEXTApp.dll
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\obj\x64\R2020\BIMEXTApp.pdb
