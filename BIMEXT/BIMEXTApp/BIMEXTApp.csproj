@@ -22,6 +22,8 @@
     <DefineConstants>TRACE;DEBUG;R2020</DefineConstants>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AssemblyName>$(AssemblyName)</AssemblyName>
+    <UseWinFormsOutOfProcDesigner>False</UseWinFormsOutOfProcDesigner>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'R2022|x64' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +33,8 @@
     <DefineConstants>TRACE;DEBUG;R2022</DefineConstants>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <AssemblyName>$(AssemblyName)</AssemblyName>
+    <UseWinFormsOutOfProcDesigner>False</UseWinFormsOutOfProcDesigner>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'R2023|x64' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,6 +44,8 @@
     <DefineConstants>TRACE;DEBUG;R2023</DefineConstants>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <AssemblyName>$(AssemblyName)</AssemblyName>
+    <UseWinFormsOutOfProcDesigner>False</UseWinFormsOutOfProcDesigner>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'R2024|x64' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,6 +55,8 @@
     <DefineConstants>TRACE;DEBUG;R2024</DefineConstants>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <AssemblyName>$(AssemblyName)</AssemblyName>
+    <UseWinFormsOutOfProcDesigner>False</UseWinFormsOutOfProcDesigner>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -123,12 +131,42 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\sharedModelUnloader.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="BIMEXT.addin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\shared_model_unloader.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) == R2020 (
+    if not exist "%25AppData%25\Autodesk\Revit\Addins\2020\BIMEXT\" (
+        mkdir "%25AppData%25\Autodesk\Revit\Addins\2020\BIMEXT\"
+        )
+    copy /Y "$(TargetDir)BIMEXTApp.dll" "%25AppData%25\Autodesk\Revit\Addins\2020\BIMEXT\"
+    copy /Y "$(TargetDir)BIMEXT.addin" "%25AppData%25\Autodesk\Revit\Addins\2020\"
+)
+if $(ConfigurationName) == R2022 (
+    if not exist "%25AppData%25\Autodesk\Revit\Addins\2020\BIMEXT\" (
+        mkdir "%25AppData%25\Autodesk\Revit\Addins\2020\BIMEXT\"
+        )
+    copy /Y "$(TargetDir)BIMEXTApp.dll" "%25AppData%25\Autodesk\Revit\Addins\2022\BIMEXT\"
+    copy /Y "$(TargetDir)BIMEXT.addin" "%25AppData%25\Autodesk\Revit\Addins\2022\"
+)
+if $(ConfigurationName) == R2023 (
+    if not exist "%25AppData%25\Autodesk\Revit\Addins\2023\BIMEXT\" (
+        mkdir "%25AppData%25\Autodesk\Revit\Addins\2023\BIMEXT\"
+        )
+    copy /Y "$(TargetDir)BIMEXTApp.dll" "%25AppData%25\Autodesk\Revit\Addins\2023\BIMEXT\"
+    copy /Y "$(TargetDir)BIMEXT.addin" "%25AppData%25\Autodesk\Revit\Addins\2023\"
+)
+if $(ConfigurationName) == R2024 (
+    if not exist "%25AppData%25\Autodesk\Revit\Addins\2024\BIMEXT\" (
+        mkdir "%25AppData%25\Autodesk\Revit\Addins\2024\BIMEXT\"
+        )
+    copy /Y "$(TargetDir)BIMEXTApp.dll" "%25AppData%25\Autodesk\Revit\Addins\2024\BIMEXT\"
+    copy /Y "$(TargetDir)BIMEXT.addin" "%25AppData%25\Autodesk\Revit\Addins\2024\"
+)</PostBuildEvent>
+  </PropertyGroup>
 </Project>

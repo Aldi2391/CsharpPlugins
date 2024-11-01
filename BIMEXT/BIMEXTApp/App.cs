@@ -30,7 +30,7 @@ namespace BIMEXTApp
                 "Выгрузка моделей",
                 "SharedModelUnloader.Infrastructure.Commands.StartCommand",
                 "Выгрузка и обновления моделей в зону shared",
-                "sharedModelUnloader.png"
+                "shared_model_unloader.png"
             );
 
             return Result.Succeeded;

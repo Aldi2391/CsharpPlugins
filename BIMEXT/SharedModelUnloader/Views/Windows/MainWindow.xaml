@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SharedModelUnloader"
         mc:Ignorable="d"
-        Title="Стартовый экран" Height="280" Width="300">
-    
-    
+        Title="Стартовый экран" Height="300" Width="300"
+        >
     <StackPanel Orientation="Vertical" Margin="10">
         <Button Content="Переход на рабочие модели"
                 Height="40"
