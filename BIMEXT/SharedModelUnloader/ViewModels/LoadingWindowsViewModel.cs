@@ -1,17 +1,21 @@
 ﻿using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using SharedModelUnloader.Infrastructure.Commands;
 using SharedModelUnloader.Infrastructure.Helpers;
 using SharedModelUnloader.Models;
 using SharedModelUnloader.ViewModels.Base;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 
 namespace SharedModelUnloader.ViewModels
 {
     internal class LoadingWindowsViewModel : ViewModel
     {
+        // Переделать - Считывать эти пути из файла с настройками
         private const string _PathToRevitServerModelsInfo = @"G:\BIMEXT\WIP\RUSSIAN\02_REVIT\04_Плагины\99_ТЗ\Зона Shared\Список моделей с RS\Models.txt";
         private const string _PathToDB = @"G:\BIMEXT\WIP\RUSSIAN\02_REVIT\04_Плагины\99_ТЗ\Зона Shared\БД\MMP_DB.db";
         private const string _PathToFolderSettings = @"G:\BIMEXT\WIP\RUSSIAN\02_REVIT\04_Плагины\99_ТЗ\Зона Shared\Настройки";
@@ -83,12 +87,35 @@ namespace SharedModelUnloader.ViewModels
 
         public UIApplication UIApplication { get; }
 
-        public Application Application { get; }
+        public Autodesk.Revit.ApplicationServices.Application Application { get; }
 
         public Document Document { get; }
 
         public ProjectSettings ProjectSettings { get; }
-        
+
+        #endregion
+
+
+        #region Команды
+
+        public ICommand CloseLoadingWindowCommand {  get; }
+
+        private bool CanCloseLoadingWindowCommandExecute(object parameter) => true;
+
+        private void OnCloseLoadingWindowCommandExecuted(object parameter)
+        {
+            Window currentWindow = (Window)parameter;
+            currentWindow.Close();
+            if (FinalStatusBoolean)
+            {
+                var MainWindow = new MainWindow()
+                {
+                    DataContext = new MainWindowViewModel(this)
+                };
+                MainWindow.ShowDialog();
+            }
+        }
+
         #endregion
 
         public LoadingWindowsViewModel(UIApplication uiApp)
@@ -112,6 +139,8 @@ namespace SharedModelUnloader.ViewModels
             this.FinalStatusBoolean = GetFinalStatusBoolean();
             this.ContinuationStatus = GetContinuationStatus();
 
+            // Комманды
+            CloseLoadingWindowCommand = new LambdaCommand(OnCloseLoadingWindowCommandExecuted, CanCloseLoadingWindowCommandExecute);
         }
 
 

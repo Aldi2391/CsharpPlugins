@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SharedModelUnloader"
         mc:Ignorable="d"
-        Title="Стартовый экран" Height="300" Width="300"
+        Title="Выберите комманду" Height="250" Width="300"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         >
     <StackPanel Orientation="Vertical" Margin="10">
         <Button Content="Переход на рабочие модели"
@@ -14,16 +15,13 @@
         <Button Content="Выдача изменений"
                 Height="40"
                 Margin="0 10 0 0"
-                />
+                Command="{Binding OutputChangesCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
         <Button Content="Принятие изменений"
                 Height="40"
                 Margin="0 10 0 0"
                 />
         <Button Content="Историй обмена"
-                Height="40"
-                Margin="0 10 0 0"
-                />
-        <Button Content="Настройка для BIM"
                 Height="40"
                 Margin="0 10 0 0"
                 />

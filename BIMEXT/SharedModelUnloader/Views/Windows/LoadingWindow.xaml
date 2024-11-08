@@ -70,6 +70,8 @@
         <TextBox Grid.Row="7" IsReadOnly="True"
             Margin="0 5 0 5" TextWrapping="Wrap"
             Text="{Binding FinalStatus}"/>
-        <Button Grid.Row="8" Content="{Binding ContinuationStatus}"/>
+        <Button Grid.Row="8" Content="{Binding ContinuationStatus}"
+                Command ="{Binding CloseLoadingWindowCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
     </Grid>
 </Window>

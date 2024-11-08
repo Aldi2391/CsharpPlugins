@@ -295,6 +295,7 @@
     <Compile Include="Infrastructure\Helpers\ProjectInfoSeeker.cs" />
     <Compile Include="Models\ProjectSettings.cs" />
     <Compile Include="ViewModels\LoadingWindowsViewModel.cs" />
+    <Compile Include="ViewModels\OutputChangesViewModel.cs" />
     <Compile Include="Views\Windows\ChronologyWindow.xaml.cs">
       <DependentUpon>ChronologyWindow.xaml</DependentUpon>
     </Compile>
