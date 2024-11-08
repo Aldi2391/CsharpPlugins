@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SharedModelUnloader.Views.Windows"
         mc:Ignorable="d"
-        Title="Загрузка данных" Height="450" Width="350"
+        Title="Загрузка данных" Height="500" Width="450"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
@@ -19,44 +19,57 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="0.75*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal"
                     VerticalAlignment="Center">
             <TextBlock Text="Модель:"/>
-            <TextBlock/>
+            <TextBlock Text="{Binding ModelName}"
+                       FontWeight="Bold"
+                       Margin="15 0 0 0"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal"
                     VerticalAlignment="Center">
             <TextBlock Text="Получение имени пользователя:"/>
-            <TextBlock/>
+            <TextBlock Text="{Binding UserName}"
+                       FontWeight="Bold"
+                       Margin="15 0 0 0"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal"
                     VerticalAlignment="Center">
             <TextBlock Text="Получение шифра проекта:"/>
-            <TextBlock/>
+            <TextBlock Text="{Binding ProjectCode}"
+                       FontWeight="Bold"
+                       Margin="15 0 0 0"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal"
                     VerticalAlignment="Center">
             <TextBlock Text="Загрузка настроек проекта:"/>
-            <TextBlock/>
+            <TextBlock Text="{Binding ProjectSettingsStatus}"
+                       FontWeight="Bold"
+                       Margin="15 0 0 0"/>
         </StackPanel>
         <StackPanel Grid.Row="4" Orientation="Horizontal"
                     VerticalAlignment="Center">
             <TextBlock Text="Получение списка моделей с RS:"/>
-            <TextBlock/>
+            <TextBlock Text="{Binding RevitServerModelsStatus}"
+                       FontWeight="Bold"
+                       Margin="15 0 0 0"/>
         </StackPanel>
         <StackPanel Grid.Row="5" Orientation="Horizontal"
                     VerticalAlignment="Center">
             <TextBlock Text="Получение доступа к БД:"/>
-            <TextBlock/>
+            <TextBlock Text="{Binding DataBaseStatus}"
+                       FontWeight="Bold"
+                       Margin="15 0 0 0"/>
         </StackPanel>
         <TextBlock Grid.Row="6" VerticalAlignment="Center">
             Статус:
         </TextBlock>
         <TextBox Grid.Row="7" IsReadOnly="True"
-            Margin="0 5 0 5"/>
-        <Button Grid.Row="8" Content="Продолжить"/>
+            Margin="0 5 0 5" TextWrapping="Wrap"
+            Text="{Binding FinalStatus}"/>
+        <Button Grid.Row="8" Content="{Binding ContinuationStatus}"/>
     </Grid>
 </Window>

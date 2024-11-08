@@ -17,7 +17,7 @@ namespace SharedModelUnloader.Infrastructure.Helpers
             }
             catch
             {
-                return "-";
+                return "Ошибка";
             }
         }
 
@@ -30,7 +30,7 @@ namespace SharedModelUnloader.Infrastructure.Helpers
         {
             string projectTitle = document.Title;
             if (!projectTitle.Contains("_"))
-                return "-";
+                return "Ошибка";
             return projectTitle.Split('_')[0];
         }
     }

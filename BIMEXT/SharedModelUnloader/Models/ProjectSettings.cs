@@ -12,10 +12,9 @@ namespace SharedModelUnloader.Models
     /// </summary>
     internal class ProjectSettings
     {
-        // Пути к папке с настройками и списку координаторов
-        private const string PATHTOFOLDERSETTINGS = @"G:\BIMEXT\WIP\RUSSIAN\02_REVIT\02_Настройки\04_Плагины\00_Зона Shared";
+        private string _PathToFolderSetting { get; }
 
-        private JArray jsonArr;
+        public JArray JsonArr { get; }
 
         public string ProjectCode { get; }
 
@@ -29,18 +28,19 @@ namespace SharedModelUnloader.Models
 
         public string RevitServer { get; }
 
-        public string PathToSave { get; }
+        public string PathToSaveModels { get; }
 
         public string PathToDB { get; }
 
         public string PathToRevitServerFolder { get; }
 
 
-        public ProjectSettings(string modelName, string projectCode)
+        public ProjectSettings(string modelName, string projectCode, string pathToFolderSettings)
         {
             // Получение файла с настройками
+            _PathToFolderSetting = pathToFolderSettings;
             ProjectCode = projectCode;
-            jsonArr = GetJsonArray();
+            JsonArr = GetJsonArray();
 
             // Парсинг данных
             Priority = GetDataFromScheme(modelName, "projectCode", "Очередь");
@@ -48,7 +48,7 @@ namespace SharedModelUnloader.Models
             Chapter = GetDataFromScheme(modelName, "projectCode", "ШифрРаздела");
             Phase = GetDataFromScheme(modelName, "projectCode", "СтадияПроектирования");
             RevitServer = GetStringValueFromJson("paths", "revit_server");
-            PathToSave = GetStringValueFromJson("paths", "path_to_save_models");
+            PathToSaveModels = GetStringValueFromJson("paths", "path_to_save_models");
             PathToDB = GetStringValueFromJson("paths", "path_to_db");
             PathToRevitServerFolder = GetStringValueFromJson("paths", "path_to_revit_server");
         }
@@ -65,7 +65,7 @@ namespace SharedModelUnloader.Models
             if(ProjectCode == null)
                 return null;
             
-            var jsonPath = Path.Combine(PATHTOFOLDERSETTINGS, $"{ProjectCode}.json");
+            var jsonPath = Path.Combine(_PathToFolderSetting, $"{ProjectCode}.json");
 
             if (!File.Exists(jsonPath))
                 return null;
@@ -84,10 +84,10 @@ namespace SharedModelUnloader.Models
         private string GetStringValueFromJson(string nameObj, string nameField)
         {
             string value = null;
-            if (jsonArr == null)
+            if (JsonArr == null)
                 return value;
 
-            foreach (var item in jsonArr)
+            foreach (var item in JsonArr)
             {
                 if (item["name"].ToString() == nameObj)
                 {
@@ -108,10 +108,10 @@ namespace SharedModelUnloader.Models
         private List<string> GetArrayValueFromJson(string nameObj, string nameField)
         {
             List<string> values = null;
-            if (jsonArr == null)
+            if (JsonArr == null)
                 return values;
 
-            foreach (var item in jsonArr)
+            foreach (var item in JsonArr)
             {
                 if (item["name"].ToString() == nameObj)
                 {
@@ -151,7 +151,7 @@ namespace SharedModelUnloader.Models
             string value = null;
             char fieldSeparator = '_';
 
-            if (jsonArr == null)
+            if (JsonArr == null)
                 return value;
             
             // Получение сепаратора с файла с настройками
