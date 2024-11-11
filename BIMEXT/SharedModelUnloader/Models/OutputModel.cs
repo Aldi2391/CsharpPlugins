@@ -80,7 +80,7 @@ namespace SharedModelUnloader.Models
         #endregion
 
         #region Конструктор
-        public OutputModel(string name, int version, string description, string date, ProjectSettings settings)
+        public OutputModel(string name, int version, string description, string date, string userName, ProjectSettings settings)
         {
             // Получение данных из аргументов
             this.IsSelected = false;
@@ -88,6 +88,8 @@ namespace SharedModelUnloader.Models
             this.Version = version;
             this.Description = description;
             this.Date = date;
+            this.Author = userName;
+            this.AuthorEmail = Author + "@samolet.ru";
             
             // Получение данных из настроек
             this.ProjectCode = settings.ProjectCode;

@@ -61,7 +61,7 @@ namespace SharedModelUnloader.Infrastructure.Helpers
         /// </summary>
         /// <param name="settings">Настройки проекта</param>
         /// <returns></returns>
-        public static List<OutputModel> GetOutputModels(ProjectSettings settings)
+        public static List<OutputModel> GetOutputModelsFromFile(ProjectSettings settings, string userName)
         {
             List<OutputModel> outData = new List<OutputModel>();
             
@@ -85,7 +85,7 @@ namespace SharedModelUnloader.Infrastructure.Helpers
                     string description = null;
                     string date = null;
 
-                    var outputModel = new OutputModel(modelName, version, description, date, settings);
+                    var outputModel = new OutputModel(modelName, version, description, date, userName, settings);
                     outData.Add(outputModel);
                 }
             }

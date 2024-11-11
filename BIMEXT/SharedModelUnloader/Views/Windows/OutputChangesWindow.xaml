@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SharedModelUnloader.Views.Windows"
         mc:Ignorable="d"
-        Title="Выдача изменений" Height="450" Width="800">
+        Title="Выдача изменений" Height="450" Width="1200">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -45,8 +45,21 @@
             Margin="0 0 10 0"
             />
         </Grid>
-        <DataGrid Grid.Row="0">
-
+        <DataGrid Grid.Row="0"
+                  ItemsSource="{Binding OutputModels}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  Margin="5">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="Выбор" Binding="{Binding IsSelected}" Width="50"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="2*"/>
+                <DataGridTextColumn Header="Текущая версия" Binding="{Binding Version}" Width="*"/>
+                <DataGridTextColumn Header="Раздел" Binding="{Binding Chapter}" Width="*"/>
+                <DataGridTextColumn Header="Краткое описание" Binding="{Binding Description}" Width="2*"/>
+                <DataGridTextColumn Header="Кем выдано" Binding="{Binding Author}" Width="*"/>
+                <DataGridTextColumn Header="Почта" Binding="{Binding AuthorEmail}" Width="*"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="*"/>
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </Window>

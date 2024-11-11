@@ -1,14 +1,26 @@
 ﻿using SharedModelUnloader.Infrastructure.Commands;
+using SharedModelUnloader.Models;
 using SharedModelUnloader.ViewModels.Base;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
+using SharedModelUnloader.Infrastructure.Helpers;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SharedModelUnloader.ViewModels
 {
     internal class OutputChangesViewModel : ViewModel
     {
         #region Свойства
-        public LoadingWindowsViewModel LoadingSettings { get; }
+        private ObservableCollection<OutputModel> _OutputModels;
 
+        public LoadingWindowsViewModel LoadingSettings { get; }
+        
+        public ObservableCollection<OutputModel> OutputModels 
+        {
+            get => _OutputModels;
+            set => Set(ref _OutputModels, value);
+        }
         #endregion
 
 
@@ -66,6 +78,39 @@ namespace SharedModelUnloader.ViewModels
             this.SelectAllCommand = new LambdaCommand(OnSelectAllCommandExecuted, CanSelectAllCommandExecute);
             this.ResetCommand = new LambdaCommand(OnResetCommandExecuted, CanResetCommandExecute);
             this.PublishCommand = new LambdaCommand(OnPublishCommandExecuted, CanPublishCommandExecute);
+
+            // Получение моделей
+            InizializeModelsAsync();
+        }
+        #endregion
+
+        #region Вспомогательные функции
+
+        private async Task InizializeModelsAsync()
+        {
+            try
+            {
+                this.OutputModels = await GetOutputModels();
+            }
+            catch { }
+        }
+
+        private async Task<ObservableCollection<OutputModel>> GetOutputModels()
+        {
+            ObservableCollection<OutputModel> outData = new ObservableCollection<OutputModel>();
+
+            List<OutputModel> modelsFromRS = OutputChangesWorker.GetOutputModelsFromFile(
+                LoadingSettings.ProjectSettings, 
+                LoadingSettings.UserName
+            );
+
+            await OutputChangesWorker.UpdateOutputModels(modelsFromRS, LoadingSettings.ProjectSettings.PathToDB);
+
+            foreach (var model in modelsFromRS)
+            {
+                outData.Add(model);
+            }
+            return outData;
         }
         #endregion
     }

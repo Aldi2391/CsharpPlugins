@@ -23,7 +23,7 @@ namespace SharedModelUnloader.Infrastructure.Helpers
             // SQL-запрос для выборки записи с максимальным fileVersion
             string query = @"
                 SELECT fileName, fileVersion, fileDescription, userName, userEmail, publishDate
-                FROM Files
+                FROM records
                 WHERE fileName = @modelName
                 ORDER BY fileVersion DESC
                 LIMIT 1;

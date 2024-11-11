@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;R2023
 
-61033762558
+7203390207
 
-14-1059834773
-15-1294639721
-Views\Windows\ChronologyWindow.xaml;Views\Windows\InputChangesWindow.xaml;Views\Windows\MainWindow.xaml;Views\Windows\OutputChangesWindow.xaml;Views\Windows\PublishWindow.xaml;Views\Windows\SettingsWindow.xaml;
+23346345385
+143-14771221
+Views\Windows\ChronologyWindow.xaml;Views\Windows\InputChangesWindow.xaml;Views\Windows\LoadingWindow.xaml;Views\Windows\MainWindow.xaml;Views\Windows\OutputChangesWindow.xaml;Views\Windows\PublishWindow.xaml;Views\Windows\SettingsWindow.xaml;
 
-True
+False
 
