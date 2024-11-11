@@ -12,9 +12,12 @@ namespace SharedModelUnloader.Models
     /// </summary>
     internal class ProjectSettings
     {
+        #region Свойства
         private string _PathToFolderSetting { get; }
 
         public JArray JsonArr { get; }
+
+        public string ProjectName { get; }
 
         public string ProjectCode { get; }
 
@@ -32,9 +35,15 @@ namespace SharedModelUnloader.Models
 
         public string PathToDB { get; }
 
-        public string PathToRevitServerFolder { get; }
+        public string RevitServerFolder { get; }
+
+        public string PathToRevitServerModelsInfo { get; }
+
+        public List<string> IgnoreFolderRules { get; }
+        #endregion
 
 
+        #region Конструктор
         public ProjectSettings(string modelName, string projectCode, string pathToFolderSettings)
         {
             // Получение файла с настройками
@@ -43,19 +52,22 @@ namespace SharedModelUnloader.Models
             JsonArr = GetJsonArray();
 
             // Парсинг данных
+            ProjectName = GetStringValueFromJson("projectInfo", "project_name");
             Priority = GetDataFromScheme(modelName, "projectCode", "Очередь");
             HomeNumber = GetDataFromScheme(modelName, "projectCode", "НомерДома");
             Chapter = GetDataFromScheme(modelName, "projectCode", "ШифрРаздела");
             Phase = GetDataFromScheme(modelName, "projectCode", "СтадияПроектирования");
-            RevitServer = GetStringValueFromJson("paths", "revit_server");
+            RevitServer = GetStringValueFromJson("projectInfo", "revit_server");
+            RevitServerFolder = GetStringValueFromJson("projectInfo", "revit_server_folder");
             PathToSaveModels = GetStringValueFromJson("paths", "path_to_save_models");
             PathToDB = GetStringValueFromJson("paths", "path_to_db");
-            PathToRevitServerFolder = GetStringValueFromJson("paths", "path_to_revit_server");
+            PathToRevitServerModelsInfo = GetStringValueFromJson("paths", "path_to_revit_server_models_info");
+            IgnoreFolderRules = GetArrayValueFromJson("ignoreFolderRules", "folder_names");
         }
+        #endregion
 
 
         #region Служебные функции для получения данных
-
         /// <summary>
         /// Получение объекта JArray 
         /// </summary>
@@ -179,7 +191,6 @@ namespace SharedModelUnloader.Models
 
             return value;
         }
-
         #endregion
     }
 }

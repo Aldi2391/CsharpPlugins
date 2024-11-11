@@ -15,12 +15,9 @@ namespace SharedModelUnloader.ViewModels
 {
     internal class LoadingWindowsViewModel : ViewModel
     {
-        // Переделать - Считывать эти пути из файла с настройками
-        private const string _PathToRevitServerModelsInfo = @"G:\BIMEXT\WIP\RUSSIAN\02_REVIT\04_Плагины\99_ТЗ\Зона Shared\Список моделей с RS\Models.txt";
-        private const string _PathToDB = @"G:\BIMEXT\WIP\RUSSIAN\02_REVIT\04_Плагины\99_ТЗ\Зона Shared\БД\MMP_DB.db";
-        private const string _PathToFolderSettings = @"G:\BIMEXT\WIP\RUSSIAN\02_REVIT\04_Плагины\99_ТЗ\Зона Shared\Настройки";
 
         #region Свойства 
+        private readonly string _PathToFolderSettings = @"G:\BIMEXT\WIP\RUSSIAN\02_REVIT\04_Плагины\99_ТЗ\Зона Shared\Настройки";
         private string _ModelName;
         private string _UserName;
         private string _ProjectCode;
@@ -127,8 +124,8 @@ namespace SharedModelUnloader.ViewModels
 
             // Поля для начала работы с плагином
             this.ModelName = this.Document.Title;
-            this.UserName = ProjectInfoSeeker.GetUserName();
-            this.ProjectCode = ProjectInfoSeeker.GetProjectCode(Document);
+            this.UserName = InfoSeeker.GetUserName();
+            this.ProjectCode = InfoSeeker.GetProjectCode(Document);
             this.ProjectSettings = new ProjectSettings(ModelName, ProjectCode, _PathToFolderSettings);
 
             // Поля для информирования пользователя
@@ -155,7 +152,8 @@ namespace SharedModelUnloader.ViewModels
             bool revitServerPath = ProjectSettings.RevitServer is null ? false : true;
             bool pathToSaveModels = ProjectSettings.PathToSaveModels is null ? false : true;
             bool pathToDB = ProjectSettings.PathToDB is null ? false : true;
-            bool pathToRevitServerFolder = ProjectSettings.PathToRevitServerFolder is null ? false : true;
+            bool pathToRevitServerFolder = ProjectSettings.RevitServerFolder is null ? false : true;
+            bool pathToRevitServerModelsInfo = ProjectSettings.PathToRevitServerModelsInfo is null ? false : true;
 
             List<bool> allFlags = new List<bool>
             {
@@ -163,7 +161,8 @@ namespace SharedModelUnloader.ViewModels
                 revitServerPath,
                 pathToSaveModels, 
                 pathToDB, 
-                pathToRevitServerFolder
+                pathToRevitServerFolder,
+                pathToRevitServerModelsInfo
             };
 
             if (allFlags.All(x => x))
@@ -178,14 +177,14 @@ namespace SharedModelUnloader.ViewModels
 
         private string GetRevitServerModelsStatus()
         {
-            if (File.Exists(_PathToRevitServerModelsInfo))
+            if (File.Exists(ProjectSettings.PathToRevitServerModelsInfo))
                 return "Данные получены";
             return "Ошибка";
         }
 
         private string GetDBStatus()
         {
-            if (File.Exists(_PathToDB))
+            if (File.Exists(ProjectSettings.PathToDB))
                 return "Доступ получен";
             return "Ошибка";
         }
@@ -224,7 +223,6 @@ namespace SharedModelUnloader.ViewModels
                 return "Продолжить";
             return "Закрыть";
         }
-
         #endregion
     }
 }
