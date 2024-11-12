@@ -148,8 +148,8 @@
     copy /Y "$(TargetDir)BIMEXT.addin" "%25AppData%25\Autodesk\Revit\Addins\2020\"
 )
 if $(ConfigurationName) == R2022 (
-    if not exist "%25AppData%25\Autodesk\Revit\Addins\2020\BIMEXT\" (
-        mkdir "%25AppData%25\Autodesk\Revit\Addins\2020\BIMEXT\"
+    if not exist "%25AppData%25\Autodesk\Revit\Addins\2022\BIMEXT\" (
+        mkdir "%25AppData%25\Autodesk\Revit\Addins\2022\BIMEXT\"
         )
     copy /Y "$(TargetDir)BIMEXTApp.dll" "%25AppData%25\Autodesk\Revit\Addins\2022\BIMEXT\"
     copy /Y "$(TargetDir)BIMEXT.addin" "%25AppData%25\Autodesk\Revit\Addins\2022\"

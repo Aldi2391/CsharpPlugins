@@ -15,6 +15,8 @@ namespace SharedModelUnloader.Models
         #region Свойства
         private string _PathToFolderSetting { get; }
 
+        public string ModelName { get; }
+
         public JArray JsonArr { get; }
 
         public string ProjectName { get; }
@@ -40,6 +42,10 @@ namespace SharedModelUnloader.Models
         public string PathToRevitServerModelsInfo { get; }
 
         public List<string> IgnoreFolderRules { get; }
+
+        public string Scheme { get; }
+
+        public char FieldSeparator { get; }
         #endregion
 
 
@@ -47,22 +53,26 @@ namespace SharedModelUnloader.Models
         public ProjectSettings(string modelName, string projectCode, string pathToFolderSettings)
         {
             // Получение файла с настройками
-            _PathToFolderSetting = pathToFolderSettings;
+            ModelName = modelName;
             ProjectCode = projectCode;
+            _PathToFolderSetting = pathToFolderSettings;
             JsonArr = GetJsonArray();
 
             // Парсинг данных
             ProjectName = GetStringValueFromJson("projectInfo", "project_name");
-            Priority = GetDataFromScheme(modelName, "projectCode", "Очередь");
-            HomeNumber = GetDataFromScheme(modelName, "projectCode", "НомерДома");
-            Chapter = GetDataFromScheme(modelName, "projectCode", "ШифрРаздела");
-            Phase = GetDataFromScheme(modelName, "projectCode", "СтадияПроектирования");
+            Priority = GetDataFromScheme(ModelName, "projectCode", "Очередь");
+            HomeNumber = GetDataFromScheme(ModelName, "projectCode", "НомерДома");
+            Chapter = GetDataFromScheme(ModelName, "projectCode", "ШифрРаздела");
+            Phase = GetDataFromScheme(ModelName, "projectCode", "СтадияПроектирования");
             RevitServer = GetStringValueFromJson("projectInfo", "revit_server");
             RevitServerFolder = GetStringValueFromJson("projectInfo", "revit_server_folder");
             PathToSaveModels = GetStringValueFromJson("paths", "path_to_save_models");
             PathToDB = GetStringValueFromJson("paths", "path_to_db");
             PathToRevitServerModelsInfo = GetStringValueFromJson("paths", "path_to_revit_server_models_info");
             IgnoreFolderRules = GetArrayValueFromJson("ignoreFolderRules", "folder_names");
+            Scheme = GetStringValueFromJson("projectCode", "scheme");
+            FieldSeparator = (GetStringValueFromJson("projectCode", "field_separator")?.ToCharArray())[0];
+
         }
         #endregion
 

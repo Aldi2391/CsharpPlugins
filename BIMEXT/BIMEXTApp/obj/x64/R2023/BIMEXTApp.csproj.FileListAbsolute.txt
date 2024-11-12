@@ -4,7 +4,6 @@ C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\R2023\BIMEX
 C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\R2023\SharedModelUnloader.dll
 C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\R2023\Newtonsoft.Json.dll
 C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\R2023\Microsoft.Data.Sqlite.dll
-C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\R2023\SQLitePCLRaw.core.dll
 C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\R2023\System.Memory.dll
 C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\R2023\System.Numerics.Vectors.dll
 C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\R2023\System.Buffers.dll

@@ -84,6 +84,7 @@ namespace SharedModelUnloader.ViewModels
         }
         #endregion
 
+
         #region Вспомогательные функции
 
         private async Task InizializeModelsAsync()

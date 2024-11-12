@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SharedModelUnloader.Infrastructure.Helpers
@@ -63,6 +64,7 @@ namespace SharedModelUnloader.Infrastructure.Helpers
         /// <returns></returns>
         public static List<OutputModel> GetOutputModelsFromFile(ProjectSettings settings, string userName)
         {
+            // Создаем выходной список
             List<OutputModel> outData = new List<OutputModel>();
             
             // Получение списка с моделями
@@ -72,20 +74,32 @@ namespace SharedModelUnloader.Infrastructure.Helpers
             if (modelPaths.Count == 0)
                 return outData;
 
-            // Получение всех данных из настроек
-            List<string> projectFeatures = GetAllSubstringFromSettings(settings);
-
             // Создание элементов
             foreach (var modelPath in modelPaths)
             {
-                if (ContainsAllSubstring(modelPath, projectFeatures))
+                // Получение имени
+                string currentModelName = "Имя модели не определено";
+                string tmpModelPath = modelPath.Replace(settings.RevitServerFolder + "\\", "");
+                string[] folders = tmpModelPath.Split('\\');
+                try
                 {
-                    string modelName = modelPath.Split('\\')[modelPath.Length - 1];
+                    string lastPart = folders[folders.Length - 1];
+                    if (lastPart.Contains(".rvt"))
+                        currentModelName = lastPart;
+                }
+                catch
+                { }
+
+                bool flagToAdd = IsSectionModel(currentModelName, settings);
+
+                if (flagToAdd)
+                {
                     int version = 0;
                     string description = null;
                     string date = null;
 
-                    var outputModel = new OutputModel(modelName, version, description, date, userName, settings);
+                    var outputModel = new OutputModel(currentModelName, version, description, date, userName, settings);
+                    
                     outData.Add(outputModel);
                 }
             }
@@ -95,52 +109,51 @@ namespace SharedModelUnloader.Infrastructure.Helpers
 
 
         /// <summary>
-        /// Проверка наличия всех признаков нужной модели
+        /// Определение флага для фильтрации сторонних моделей
         /// </summary>
-        /// <param name="inputString">Путь к модели</param>
-        /// <param name="substings">Признаки модели</param>
-        /// <returns>Да\Нет</returns>
-        private static bool ContainsAllSubstring(string inputString, List<string> substings)
+        /// <param name="verifiableName">Проверяемое имя</param>
+        /// <param name="settings">Параметры проекта</param>
+        /// <returns></returns>
+        private static bool IsSectionModel(string verifiableName, ProjectSettings settings)
         {
-            if(substings.Count == 0 || inputString == null || substings == null)
-                return false;
+            char fieldSeparator = settings.FieldSeparator;
             
-            string lowerInputString = inputString.ToLower();
+            List<int> emptyIndexes = GetEmptyIndexes(settings);
 
-            IEnumerable<string> lowerSubstrings = from substing in substings
-                                           where substing != null
-                                           select substing.ToLower();
+            string[] templateList = settings.ModelName.Split(fieldSeparator);
 
-            return lowerSubstrings.All(sub => inputString.Contains(sub));
+            foreach(var ind in emptyIndexes)
+            {
+                templateList[ind] = "[^_]+";
+            }
+
+            string pattern = $"^{string.Join(fieldSeparator.ToString(), templateList)}$";
+
+            return Regex.IsMatch(verifiableName, pattern, RegexOptions.IgnoreCase);
         }
 
 
         /// <summary>
-        /// Получение всех признаков модели
+        /// Получение индексов с пропусками полей из шаблона наименования
         /// </summary>
-        /// <param name="settings">Настроки проекта</param>
-        /// <returns>Список характеристик</returns>
-        private static List<string> GetAllSubstringFromSettings(ProjectSettings settings)
+        /// <param name="settings">Настройки проекта</param>
+        /// <returns></returns>
+        private static List<int> GetEmptyIndexes(ProjectSettings settings)
         {
-            List<string> outData = new List<string>();
+            List<int> emptyIndexes = new List<int>();
 
-            List<string> features = new List<string>
-            {
-                settings.ProjectCode,
-                settings.Priority,
-                settings.HomeNumber,
-                settings.Chapter,
-                settings.Phase
-            };
+            string scheme = settings.Scheme;
+            char fieldSeparator = settings.FieldSeparator;
 
-            foreach (var feature in features)
+            string[] fields = scheme.Split(fieldSeparator);
+
+            for (int i = 0; i < fields.Length; i++)
             {
-                if (feature == null)
-                    continue;
-                outData.Add(feature);
+                if (fields[i] == "#")
+                    emptyIndexes.Add(i);
             }
 
-            return outData;
+            return emptyIndexes;
         }
     }
 }
