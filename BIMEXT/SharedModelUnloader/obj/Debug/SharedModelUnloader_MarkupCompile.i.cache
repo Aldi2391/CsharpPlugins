@@ -1,7 +1,7 @@
 ﻿SharedModelUnloader
 
 
-winexe
+library
 C#
 .cs
 C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\obj\Debug\
@@ -9,12 +9,12 @@ SharedModelUnloader
 none
 false
 DEBUG;TRACE
-C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\App.xaml
-1-1089536010
 
-10-1349040366
+61033762558
+
+14-1669757811
 13-1310406943
-Views\Windows\MainWindow.xaml;
+Views\Windows\ChronologyWindow.xaml;Views\Windows\InputChangesWindow.xaml;Views\Windows\MainWindow.xaml;Views\Windows\OutputChangesWindow.xaml;Views\Windows\PublishWindow.xaml;Views\Windows\SettingsWindow.xaml;
 
 False
 

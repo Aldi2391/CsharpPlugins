@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>BIMEXT plugins</Name>
+    <Assembly>BIMEXT\BIMEXTApp.dll</Assembly>
+    <AddInId>FAE04EC0-301F-11D3-BF4B-00C04F79EFBC</AddInId>
+    <FullClassName>BIMEXTApp.App</FullClassName>
+    <VendorId>SamoletEXT</VendorId>
+    <VendorDescription>SamoletEXT</VendorDescription>
+  </AddIn>
+</RevitAddIns>

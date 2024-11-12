@@ -13,3 +13,14 @@ C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\obj\D
 C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\obj\Debug\SharedModelUnloader.csproj.CoreCompileInputs.cache
 C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\obj\Debug\SharedModelUnloader.exe
 C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\obj\Debug\SharedModelUnloader.pdb
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\obj\Debug\Views\Windows\ChronologyWindow.g.cs
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\obj\Debug\Views\Windows\InputChangesWindow.g.cs
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\obj\Debug\Views\Windows\OutputChangesWindow.g.cs
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\obj\Debug\Views\Windows\PublishWindow.g.cs
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\obj\Debug\Views\Windows\SettingsWindow.g.cs
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\obj\Debug\Views\Windows\ChronologyWindow.baml
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\obj\Debug\Views\Windows\InputChangesWindow.baml
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\obj\Debug\Views\Windows\OutputChangesWindow.baml
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\obj\Debug\Views\Windows\PublishWindow.baml
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\SharedModelUnloader\obj\Debug\Views\Windows\SettingsWindow.baml

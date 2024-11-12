@@ -1,0 +1,16 @@
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\x64\R2020\BIMEXTApp.dll
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\x64\R2020\BIMEXTApp.pdb
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\x64\R2020\Resources\sharedModelUnloader.png
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\R2020\BIMEXT.addin
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\R2020\BIMEXTApp.dll
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\R2020\BIMEXTApp.pdb
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\R2020\SharedModelUnloader.dll
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\R2020\SharedModelUnloader.pdb
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\obj\x64\R2020\BIMEXTApp.csproj.AssemblyReference.cache
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\obj\x64\R2020\BIMEXTApp.csproj.CoreCompileInputs.cache
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\obj\x64\R2020\BIMEXTApp.csproj.Up2Date
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\obj\x64\R2020\BIMEXTApp.dll
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\obj\x64\R2020\BIMEXTApp.pdb
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\obj\x64\R2020\BIMEXTApp.g.resources
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\R2020\Newtonsoft.Json.dll
+C:\Users\ds.alekseev\source\repos\CsharpPlugins\BIMEXT\BIMEXTApp\bin\R2020\Newtonsoft.Json.xml
