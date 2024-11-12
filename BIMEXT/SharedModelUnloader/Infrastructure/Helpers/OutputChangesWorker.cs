@@ -3,20 +3,18 @@ using DocumentFormat.OpenXml.Drawing.Diagrams;
 using SharedModelUnloader.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace SharedModelUnloader.Infrastructure.Helpers
 {
+    
     internal class OutputChangesWorker
     {
         /// <summary>
         /// Обновление данных по версии из БД
         /// </summary>
         /// <param name="outputModels">Модели для выгрузки</param>
-        public static async Task UpdateOutputModels(List<OutputModel> outputModels, string pathToDB)
+        public static void UpdateOutputModels(List<OutputModel> outputModels, string pathToDB)
         {
             if (outputModels != null && outputModels.Count > 0)
             {
@@ -27,7 +25,7 @@ namespace SharedModelUnloader.Infrastructure.Helpers
                     string modelName = model.Name;
                     try
                     {
-                        ModelRecord latestRecord = await dbHelper.GetLatestModelRecordAsync(modelName);
+                        ModelRecord latestRecord = dbHelper.GetLatestModelRecord(modelName);
 
                         if (latestRecord != null)
                         {

@@ -1,7 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
 using SharedModelUnloader.Models;
-using System;
-using System.Threading.Tasks;
 
 
 namespace SharedModelUnloader.Infrastructure.Helpers
@@ -12,13 +10,13 @@ namespace SharedModelUnloader.Infrastructure.Helpers
 
         public DataBaseHelper(string pathToDB)
         {
-            _connectionString = pathToDB;
+            _connectionString = $"Data Source={pathToDB};";
         }
 
-        public async Task<ModelRecord> GetLatestModelRecordAsync(string modelName)
+        public ModelRecord GetLatestModelRecord(string modelName)
         {
             if (string.IsNullOrEmpty(modelName))
-                throw new ArgumentException("Имя модели не может быть пустым.", nameof(modelName));
+                return null;
 
             // SQL-запрос для выборки записи с максимальным fileVersion
             string query = @"
@@ -31,16 +29,16 @@ namespace SharedModelUnloader.Infrastructure.Helpers
 
             using (var connection = new SqliteConnection(_connectionString))
             {
-                await connection.OpenAsync();
+                connection.Open();
 
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = query;
-                    command.Parameters.AddWithValue("@fileName", modelName);
+                    command.Parameters.AddWithValue("@modelName", modelName);
 
-                    using (var reader = await command.ExecuteReaderAsync())
+                    using (var reader = command.ExecuteReader())
                     {
-                        if (await reader.ReadAsync())
+                        if (reader.Read())
                         {
                             var modelRecord = new ModelRecord
                             {
@@ -48,7 +46,7 @@ namespace SharedModelUnloader.Infrastructure.Helpers
                                 ModelVersion = reader.GetInt32(reader.GetOrdinal("fileVersion")),
                                 ModelDescription = reader.GetString(reader.GetOrdinal("fileDescription")),
                                 UserName = reader.GetString(reader.GetOrdinal("userName")),
-                                UserEmail = reader.GetString(reader.GetOrdinal("userName")),
+                                UserEmail = reader.GetString(reader.GetOrdinal("userEmail")),
                                 PublishDate = reader.GetString(reader.GetOrdinal("publishDate"))
                             };
 

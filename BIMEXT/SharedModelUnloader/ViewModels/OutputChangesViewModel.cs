@@ -6,6 +6,7 @@ using System.Windows.Input;
 using SharedModelUnloader.Infrastructure.Helpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using SQLitePCL;
 
 namespace SharedModelUnloader.ViewModels
 {
@@ -70,33 +71,22 @@ namespace SharedModelUnloader.ViewModels
         #region Конструктор
         public OutputChangesViewModel(LoadingWindowsViewModel loadingSettings)
         {
+            Batteries_V2.Init();
             // Инициализация свойств
             this.LoadingSettings = loadingSettings;
+            this.OutputModels = GetOutputModels();
 
             // Инициализация комманд
             this.BackCommand = new LambdaCommand(OnBackCommandExecuted, CanBackCommandExecute);
             this.SelectAllCommand = new LambdaCommand(OnSelectAllCommandExecuted, CanSelectAllCommandExecute);
             this.ResetCommand = new LambdaCommand(OnResetCommandExecuted, CanResetCommandExecute);
             this.PublishCommand = new LambdaCommand(OnPublishCommandExecuted, CanPublishCommandExecute);
-
-            // Получение моделей
-            InizializeModelsAsync();
         }
         #endregion
 
 
         #region Вспомогательные функции
-
-        private async Task InizializeModelsAsync()
-        {
-            try
-            {
-                this.OutputModels = await GetOutputModels();
-            }
-            catch { }
-        }
-
-        private async Task<ObservableCollection<OutputModel>> GetOutputModels()
+        private ObservableCollection<OutputModel> GetOutputModels()
         {
             ObservableCollection<OutputModel> outData = new ObservableCollection<OutputModel>();
 
@@ -105,7 +95,7 @@ namespace SharedModelUnloader.ViewModels
                 LoadingSettings.UserName
             );
 
-            await OutputChangesWorker.UpdateOutputModels(modelsFromRS, LoadingSettings.ProjectSettings.PathToDB);
+            OutputChangesWorker.UpdateOutputModels(modelsFromRS, LoadingSettings.ProjectSettings.PathToDB);
 
             foreach (var model in modelsFromRS)
             {
