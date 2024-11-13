@@ -24,18 +24,22 @@
             Width="120"
             Height="35"
             HorizontalAlignment="Center"
+            Command="{Binding BackCommand}"
+            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
             />
             <Button Grid.Column="1"
             Content="Выбрать все"
             Width="120"
             Height="35"
             HorizontalAlignment="Center"
+            Command="{Binding SelectAllCommand}"
             />
             <Button Grid.Column="2"
             Content="Сбросить выбор"
             Width="120"
             Height="35"
             HorizontalAlignment="Center"
+            Command="{Binding ResetCommand}"
             />
             <Button Grid.Column="3"
             Content="Опубликовать"
@@ -43,7 +47,7 @@
             Height="35"
             HorizontalAlignment="Right"
             Margin="0 0 10 0"
-            />
+            Command="{Binding PublishCommand}"/>
         </Grid>
         <DataGrid Grid.Row="0"
                   ItemsSource="{Binding OutputModels}"
@@ -58,7 +62,7 @@
                   >
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Header="Выбор" Binding="{Binding IsSelected}" Width="50"/>
-                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="2*" SortMemberPath="Name" SortDirection="Ascending"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="2*" SortMemberPath="Name" SortDirection="Descending"/>
                 <DataGridTextColumn Header="Текущая версия" Binding="{Binding Version}" Width="*"/>
                 <DataGridTextColumn Header="Раздел" Binding="{Binding Chapter}" Width="*"/>
                 <DataGridTextColumn Header="Краткое описание" Binding="{Binding Description}" Width="2*"/>

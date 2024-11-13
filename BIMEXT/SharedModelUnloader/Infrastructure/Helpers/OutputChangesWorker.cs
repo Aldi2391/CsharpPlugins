@@ -95,8 +95,17 @@ namespace SharedModelUnloader.Infrastructure.Helpers
                     int version = 0;
                     string description = null;
                     string date = null;
+                    string modelPathToRS = CreateModelPathToServer(modelPath, settings);
 
-                    var outputModel = new OutputModel(currentModelName, version, description, date, userName, settings);
+                    var outputModel = new OutputModel(
+                        currentModelName, 
+                        version, 
+                        description, 
+                        date, 
+                        userName,
+                        modelPathToRS,
+                        settings
+                    );
                     
                     outData.Add(outputModel);
                 }
@@ -152,6 +161,30 @@ namespace SharedModelUnloader.Infrastructure.Helpers
             }
 
             return emptyIndexes;
+        }
+
+
+        /// <summary>
+        /// Получение пути к модели на RS
+        /// </summary>
+        /// <param name="pathToFolder">Путь к модели в папочной структуре</param>
+        /// <param name="settings">Настройки проекта</param>
+        /// <returns>Путь к модели на RS</returns>
+        private static string CreateModelPathToServer(string pathToFolder, ProjectSettings settings)
+        {
+            string pathToRS = null;
+
+            try
+            {
+                string pathFromFile = pathToFolder.Replace(settings.RevitServerFolder, settings.RevitServer);
+                pathFromFile = pathFromFile.Replace("\\", "/");
+                pathToRS = "RSN://" + pathFromFile;
+            }
+            catch
+            {
+            }
+
+            return pathToRS;
         }
     }
 }

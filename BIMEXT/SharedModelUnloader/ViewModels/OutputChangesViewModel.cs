@@ -5,8 +5,9 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using SharedModelUnloader.Infrastructure.Helpers;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using SQLitePCL;
+using System.Windows;
+using System.Linq;
 
 namespace SharedModelUnloader.ViewModels
 {
@@ -14,6 +15,7 @@ namespace SharedModelUnloader.ViewModels
     {
         #region Свойства
         private ObservableCollection<OutputModel> _OutputModels;
+        private string _ResultMessage;
 
         public LoadingWindowsViewModel LoadingSettings { get; }
         
@@ -22,6 +24,13 @@ namespace SharedModelUnloader.ViewModels
             get => _OutputModels;
             set => Set(ref _OutputModels, value);
         }
+
+        public string ResultMessage
+        {
+            get => _ResultMessage;
+            set => Set(ref _ResultMessage, value);
+        }
+
         #endregion
 
 
@@ -30,36 +39,48 @@ namespace SharedModelUnloader.ViewModels
         private bool CanBackCommandExecute(object parameter) => true;
         private void OnBackCommandExecuted(object parameter)
         {
-
+            Window currentWindow = (Window)parameter;
+            currentWindow.Close();
+            var MainWindow = new MainWindow()
+            {
+                    DataContext = new MainWindowViewModel(LoadingSettings)
+            };
+            MainWindow.ShowDialog();
         }
 
 
         public ICommand SelectAllCommand { get; }
         private bool CanSelectAllCommandExecute(object parameter)
         {
-            return true;
+            if(OutputModels.Count > 0)
+                return true;
+            return false;
         }
         private void OnSelectAllCommandExecuted(object parameter)
         {
-
+            foreach(var model in OutputModels)
+                model.IsSelected = true;
         }
 
 
         public ICommand ResetCommand { get; }
         private bool CanResetCommandExecute(object parameter)
         {
-            return true;
+            if (OutputModels.Count > 0)
+                return true;
+            return false;
         }
         private void OnResetCommandExecuted(object parameter)
         {
-
+            foreach (var model in OutputModels)
+                model.IsSelected = false;
         }
 
 
         public ICommand PublishCommand { get; }
         private bool CanPublishCommandExecute(object parameter)
         {
-            return true;
+            return OutputModels.Any(model => model.IsSelected);
         }
         private void OnPublishCommandExecuted(object parameter)
         {

@@ -72,7 +72,6 @@ namespace SharedModelUnloader.Models
             IgnoreFolderRules = GetArrayValueFromJson("ignoreFolderRules", "folder_names");
             Scheme = GetStringValueFromJson("projectCode", "scheme");
             FieldSeparator = (GetStringValueFromJson("projectCode", "field_separator")?.ToCharArray())[0];
-
         }
         #endregion
 

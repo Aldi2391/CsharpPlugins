@@ -76,11 +76,20 @@ namespace SharedModelUnloader.Models
         
         public string Phase { get; }
 
-        public string PathToFolder {  get; }
+        public string PathToFolder { get; }
+
+        public string PathToFileRS { get; }
         #endregion
 
         #region Конструктор
-        public OutputModel(string name, int version, string description, string date, string userName, ProjectSettings settings)
+        public OutputModel(
+            string name, 
+            int version, 
+            string description, 
+            string date, 
+            string userName,
+            string pathToFile,
+            ProjectSettings settings)
         {
             // Получение данных из аргументов
             this.IsSelected = false;
@@ -90,6 +99,7 @@ namespace SharedModelUnloader.Models
             this.Date = date;
             this.Author = userName;
             this.AuthorEmail = Author + "@samolet.ru";
+            this.PathToFileRS = pathToFile;
             
             // Получение данных из настроек
             this.ProjectCode = settings.ProjectCode;

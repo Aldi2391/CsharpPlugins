@@ -142,6 +142,7 @@
   <ItemGroup>
     <Compile Include="Infrastructure\Commands\StartCommand.cs" />
     <Compile Include="Infrastructure\Helpers\DataBaseHelper.cs" />
+    <Compile Include="Infrastructure\Helpers\ModelCleaner.cs" />
     <Compile Include="Infrastructure\Helpers\OutputChangesWorker.cs" />
     <Compile Include="Infrastructure\Helpers\InfoSeeker.cs" />
     <Compile Include="Models\ModelRecord.cs" />
