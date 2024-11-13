@@ -12,14 +12,20 @@ namespace SharedModelUnloader.Infrastructure.Helpers
 {
     internal class ModelCleaner
     {
+        #region Свойства
         public LoadingWindowsViewModel LoadingSettings { get; }
+        #endregion
 
+
+        #region Конструктор
         public ModelCleaner(LoadingWindowsViewModel loadingSettings)
         {
             this.LoadingSettings = loadingSettings;
         }
+        #endregion
 
 
+        #region Функции
         /// <summary>
         /// Очистка модели от неиспоьльзуемых элементов
         /// </summary>
@@ -184,5 +190,6 @@ namespace SharedModelUnloader.Infrastructure.Helpers
             }
             return savingPath;
         }
+        #endregion
     }
 }
