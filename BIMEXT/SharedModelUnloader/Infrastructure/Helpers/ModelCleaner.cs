@@ -31,9 +31,51 @@ namespace SharedModelUnloader.Infrastructure.Helpers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public string ClearModelWithoutRules(OutputModel model)
+        public bool ClearModelWithoutRules(Document currentDocument)
         {
-            return string.Empty;
+            bool successFlag = false;
+
+            string purgeGuid = "e8c63650-70b7-435a-9010-ec97660c1bda";
+            List<PerformanceAdviserRuleId> purgeRuleIds = new List<PerformanceAdviserRuleId>();
+
+            var adviser = PerformanceAdviser.GetPerformanceAdviser();
+            var allRuleIds = adviser.GetAllRuleIds();
+
+            foreach (var ruleId in allRuleIds)
+            {
+                if (ruleId.Guid.ToString() == purgeGuid)
+                    purgeRuleIds.Add(ruleId);
+            }
+
+            var failureMessages = adviser.ExecuteRules(currentDocument, purgeRuleIds);
+
+            if (failureMessages.Count > 0)
+            {
+                var deleteElementIds = failureMessages[0].GetFailingElements();
+
+                try
+                {
+                    using(var t = new Transaction(currentDocument, "Clearing document"))
+                    {
+                        t.Start();
+
+                        var countOfDelete  = currentDocument.Delete(deleteElementIds);
+
+                        t.Commit();
+
+                        if (countOfDelete.Count > 0)
+                            successFlag = true;
+                    }
+                }
+
+                catch
+                {
+                    // Добавить логгирование
+                }
+
+            }
+
+            return successFlag;
         }
 
 
@@ -42,7 +84,7 @@ namespace SharedModelUnloader.Infrastructure.Helpers
         /// </summary>
         /// <param name="model">Модель для выгрузки</param>
         /// <returns>Документ Revit</returns>
-        private Document OpenRevitModel(OutputModel model)
+        public Document OpenRevitModel(OutputModel model)
         {
             Document document = null;
 
@@ -73,11 +115,9 @@ namespace SharedModelUnloader.Infrastructure.Helpers
         /// </summary>
         /// <param name="currentDocument">Текущий открытый документ</param>
         /// <returns>Флаг закрытия</returns>
-        private bool CloseAndSaveModel(OutputModel model, Document currentDocument)
+        public bool CloseAndSaveModel(OutputModel model, Document currentDocument)
         {
             bool flag = false;
-
-            string documentName = currentDocument.Title;
 
             var worksetOpt = new WorksharingSaveAsOptions();
             worksetOpt.SaveAsCentral = true;
@@ -115,37 +155,42 @@ namespace SharedModelUnloader.Infrastructure.Helpers
                     {
                         try
                         {
-                            File.Create(saveFolder);
+                            Directory.CreateDirectory(saveFolder);
                         }
                         catch
                         {
                             // Добавить логгирование
+                            currentDocument.Close(false);
+                            return flag;
                         }
                     }
-                    else
+                    string fullSavePath = GenerateSavingPath(model, fullPath:true);
+                    if (fullSavePath != null)
                     {
-                        string fullSavePath = GenerateSavingPath(model, fullPath:true);
-                        if (fullSavePath != null)
+                        try
                         {
-                            try
-                            {
-                                currentDocument.SaveAs(fullSavePath, saveOpt);
-                                if(File.Exists(fullSavePath))
-                                    flag = true;
-                            }
-                            catch
-                            {
-                                // Добавить логгирование
-                            }
+                            var modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(fullSavePath);
+                            currentDocument.SaveAs(modelPath, saveOpt);
+
+                            if (File.Exists(fullSavePath))
+                                // Запись пути к модели
+                                model.PathToFileInShared = fullSavePath;
+                                flag = true;
+                        }
+                        catch
+                        {
+                            // Удаляем созданную ранее папку
+                            Directory.Delete(saveFolder);
                         }
                     }
                 }
             }
             catch
             {
-                // Добавить логгирование 
+                // Добавить логгирование
             }
 
+            currentDocument.Close(false);
             return flag;
         }
 
@@ -163,32 +208,53 @@ namespace SharedModelUnloader.Infrastructure.Helpers
 
             try
             {
-                string projectName = LoadingSettings.ProjectSettings.ProjectName;
+                string sepator = LoadingSettings.ProjectSettings.FieldSeparator.ToString();
                 string chapter = LoadingSettings.ProjectSettings.Chapter;
-                string modelName = LoadingSettings.ProjectSettings.ModelName;
-                string shortModelName = modelName.Replace(LoadingSettings.ProjectCode, "").Replace(".rvt", "");
-                string modelVersion = (savingModel.Version + 1).ToString();
+                string modelName = savingModel.Name;
+                string shortModelName = modelName.Replace(LoadingSettings.ProjectCode + sepator, "").Replace(".rvt", "");
+                string modelVersion = (savingModel.Version).ToString();
 
                 string firstPartPath = LoadingSettings.ProjectSettings.PathToSaveModels;
                 
                 if (fullPath)
                 {
-                    secondPartPath = $"{projectName}\\{chapter}\\{shortModelName}_{modelVersion}\\{modelName}";
+                    secondPartPath = $"{chapter}\\{shortModelName}_V{modelVersion}\\{modelName}.rvt";
                 }
                 else
                 {
-                    secondPartPath = $"{projectName}\\{chapter}\\{shortModelName}_{modelVersion}";
+                    secondPartPath = $"{chapter}\\{shortModelName}_V{modelVersion}";
                 }
                 
                 if (!string.IsNullOrEmpty(firstPartPath) && !string.IsNullOrEmpty(secondPartPath))
                     savingPath = Path.Combine(firstPartPath, secondPartPath);
-
             }
             catch
             {
                 // Добавить логгирование
             }
             return savingPath;
+        }
+        
+        
+        /// <summary>
+        /// Сохранения данных о корректировке модели в тектовый файл
+        /// </summary>
+        /// <param name="savingModel">Исходящая модель</param>
+        /// <returns>Флаг успешного завершения</returns>
+        public void SaveReport(OutputModel savingModel)
+        {
+            string folderPath = GenerateSavingPath(savingModel);
+
+            if(!string.IsNullOrEmpty(folderPath))
+            {
+                string publishDate = InfoSeeker.GetCurrentDateTime();
+                
+                string textMessage = $"Дата - {publishDate}\nАвтор - {savingModel.Author}\nКраткое описание - {savingModel.Description}";
+
+                string fullPath = folderPath + "\\Изменения.txt";
+
+                File.WriteAllText(fullPath, textMessage);
+            }
         }
         #endregion
     }

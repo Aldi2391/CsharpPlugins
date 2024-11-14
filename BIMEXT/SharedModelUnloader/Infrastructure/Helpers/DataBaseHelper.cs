@@ -37,7 +37,7 @@ namespace SharedModelUnloader.Infrastructure.Helpers
 
             // SQL-запрос для выборки записи с максимальным fileVersion
             string query = @"
-                SELECT fileName, fileVersion, fileDescription, userName, userEmail, publishDate
+                SELECT fileName, fileVersion, fileDescription, userName, userEmail, publishDate, filePath
                 FROM records
                 WHERE fileName = @modelName
                 ORDER BY fileVersion DESC
@@ -64,7 +64,8 @@ namespace SharedModelUnloader.Infrastructure.Helpers
                                 ModelDescription = reader.GetString(reader.GetOrdinal("fileDescription")),
                                 UserName = reader.GetString(reader.GetOrdinal("userName")),
                                 UserEmail = reader.GetString(reader.GetOrdinal("userEmail")),
-                                PublishDate = reader.GetString(reader.GetOrdinal("publishDate"))
+                                PublishDate = reader.GetString(reader.GetOrdinal("publishDate")),
+                                PathToFileInShared = reader.GetString(reader.GetOrdinal("publishDate"))
                             };
 
                             return modelRecord;
@@ -79,19 +80,19 @@ namespace SharedModelUnloader.Infrastructure.Helpers
         }
 
 
-        
-        public bool WriteChangesToDB(OutputModel model, string Description)
+        /// <summary>
+        /// Метод для записи данных в БД
+        /// </summary>
+        /// <param name="model">Модель</param>
+        /// <returns>Флаг успешной записи</returns>
+        public bool WriteChangesToDB(OutputModel model)
         {
             bool flag = false;
 
-            // Проверка на пустую строку и отсутствие модели
-            if (string.IsNullOrEmpty(Description) || model is null)
-                return flag;
-
             // SQL-запрос для вставки новой записи
             string insertQuery = @"
-                INSERT INTO records (fileName, fileVersion, fileDescription, userName, userEmail, publishDate)
-                VALUES (@fileName, @fileVersion, @fileDescription, @userName, @userEmail, @publishDate);";
+                INSERT INTO records (projectCode, priority, homeNumber, phase, chapter, fileName, fileVersion, fileDescription, userName, userEmail, publishDate, filePath)
+                VALUES (@projectCode, @priority, @homeNumber, @phase, @chapter, @fileName, @fileVersion, @fileDescription, @userName, @userEmail, @publishDate, @filePath);";
 
             try
             {
@@ -104,12 +105,18 @@ namespace SharedModelUnloader.Infrastructure.Helpers
                         command.CommandText = insertQuery;
 
                         // Добавляем параметры с соответствующими значениями
+                        command.Parameters.AddWithValue("@projectCode", model.ProjectCode);
+                        command.Parameters.AddWithValue("@priority", model.Priority);
+                        command.Parameters.AddWithValue("@homeNumber", model.HomeNumber);
+                        command.Parameters.AddWithValue("@phase", model.Phase);
+                        command.Parameters.AddWithValue("@chapter", model.Chapter);
                         command.Parameters.AddWithValue("@fileName", model.Name);
-                        command.Parameters.AddWithValue("@fileVersion", model.Version + 1);
-                        command.Parameters.AddWithValue("@fileDescription", Description);
+                        command.Parameters.AddWithValue("@fileVersion", model.Version);
+                        command.Parameters.AddWithValue("@fileDescription", model.Description);
                         command.Parameters.AddWithValue("@userName", model.Author);
                         command.Parameters.AddWithValue("@userEmail", model.AuthorEmail);
-                        command.Parameters.AddWithValue("@publishDate", GetCurrentDateTime());
+                        command.Parameters.AddWithValue("@publishDate", InfoSeeker.GetCurrentDateTime());
+                        command.Parameters.AddWithValue("@filePath", model.PathToFileInShared);
 
                         // Выполняем команду и проверяем, сколько строк было затронуто
                         int affectedRows = command.ExecuteNonQuery();
@@ -130,20 +137,6 @@ namespace SharedModelUnloader.Infrastructure.Helpers
 
             return flag;
         }
-
-
-        /// <summary>
-        /// Генерация текущей даты
-        /// </summary>
-        /// <returns>Текущая дата в виде строки в формате yy.MM.dd HH:mm:ss</returns>
-        private string GetCurrentDateTime()
-        {
-            DateTime now = DateTime.Now;
-            string formattedDate = now.ToString("yy.MM.dd HH:mm:ss", CultureInfo.InvariantCulture);
-            return formattedDate;
-        }
-
-
         #endregion
     }
 }

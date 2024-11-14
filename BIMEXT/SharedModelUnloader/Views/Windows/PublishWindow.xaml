@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SharedModelUnloader.Views.Windows"
         mc:Ignorable="d"
-        Title="Публикация моделей" Height="400" Width="300
-        ">
+        Title="Публикация моделей" Height="430" Width="300"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="0.5*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
@@ -17,7 +18,9 @@
         <StackPanel Grid.Row="0" Orientation="Vertical"
                     Margin="5">
             <TextBlock Text="Введите ФИО:"/>
-            <TextBox Height="35"/>
+            <TextBox Height="30"
+                     Text="{Binding Author}"
+                     />
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Vertical"
                     Margin="5" Grid.RowSpan="2">
@@ -29,13 +32,18 @@
                 <TextBox Grid.Row="0"
                          VerticalAlignment="Stretch"
                          HorizontalAlignment="Stretch"
+                         Height="250"
                          TextWrapping="Wrap"
-                         AcceptsReturn="True" TextChanged="TextBox_TextChanged"/>
+                         Text="{Binding Description}"
+                         VerticalScrollBarVisibility="Auto"
+                         />
             </Grid>
         </StackPanel>
 
         <Button Grid.Row="2"
                 Height="35" Width="120"
-                Content="Опубликовать"/>
+                Content="Опубликовать"
+                Command="{Binding PublishCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
     </Grid>
 </Window>

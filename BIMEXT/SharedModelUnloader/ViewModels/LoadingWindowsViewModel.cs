@@ -116,6 +116,7 @@ namespace SharedModelUnloader.ViewModels
         #endregion
 
 
+        #region Конструктор
         public LoadingWindowsViewModel(UIApplication uiApp)
         {
             // Поля для работы с приложением Revit
@@ -140,6 +141,7 @@ namespace SharedModelUnloader.ViewModels
             // Комманды
             CloseLoadingWindowCommand = new LambdaCommand(OnCloseLoadingWindowCommandExecuted, CanCloseLoadingWindowCommandExecute);
         }
+        #endregion
 
 
         #region Служебные функции

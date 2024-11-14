@@ -150,6 +150,8 @@
     <Compile Include="Models\ProjectSettings.cs" />
     <Compile Include="ViewModels\LoadingWindowsViewModel.cs" />
     <Compile Include="ViewModels\OutputChangesViewModel.cs" />
+    <Compile Include="ViewModels\PublishWindowViewModel.cs" />
+    <Compile Include="ViewModels\ResultWindowViewModel.cs" />
     <Compile Include="Views\Windows\ChronologyWindow.xaml.cs">
       <DependentUpon>ChronologyWindow.xaml</DependentUpon>
     </Compile>
@@ -161,6 +163,9 @@
     </Compile>
     <Compile Include="Views\Windows\PublishWindow.xaml.cs">
       <DependentUpon>PublishWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\ResultWindow.xaml.cs">
+      <DependentUpon>ResultWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
@@ -197,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Windows\PublishWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\ResultWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

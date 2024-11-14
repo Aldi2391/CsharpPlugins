@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace SharedModelUnloader.Views.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для PublishWindow.xaml
+    /// Логика взаимодействия для ResultWindow.xaml
     /// </summary>
-    public partial class PublishWindow : Window
+    public partial class ResultWindow : Window
     {
-        public PublishWindow()
+        public ResultWindow()
         {
             InitializeComponent();
         }

@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SharedModelUnloader.Views.Windows"
         mc:Ignorable="d"
-        Title="Выдача изменений" Height="450" Width="1200">
+        Title="Выдача изменений" Height="450" Width="1200"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -47,7 +49,8 @@
             Height="35"
             HorizontalAlignment="Right"
             Margin="0 0 10 0"
-            Command="{Binding PublishCommand}"/>
+            Command="{Binding PublishCommand}"
+            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
         </Grid>
         <DataGrid Grid.Row="0"
                   ItemsSource="{Binding OutputModels}"

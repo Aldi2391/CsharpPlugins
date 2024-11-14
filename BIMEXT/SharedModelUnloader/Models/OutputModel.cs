@@ -76,29 +76,21 @@ namespace SharedModelUnloader.Models
         
         public string Phase { get; }
 
-        public string PathToFolder { get; }
+        public string PathToSaveFolder { get; }
 
         public string PathToFileRS { get; }
+
+        public string PathToFileInShared { get; set; }
         #endregion
 
         #region Конструктор
         public OutputModel(
-            string name, 
-            int version, 
-            string description, 
-            string date, 
-            string userName,
+            string name,
             string pathToFile,
             ProjectSettings settings)
         {
             // Получение данных из аргументов
-            this.IsSelected = false;
             this.Name = name;
-            this.Version = version;
-            this.Description = description;
-            this.Date = date;
-            this.Author = userName;
-            this.AuthorEmail = Author + "@samolet.ru";
             this.PathToFileRS = pathToFile;
             
             // Получение данных из настроек
@@ -107,7 +99,7 @@ namespace SharedModelUnloader.Models
             this.HomeNumber = settings.HomeNumber;
             this.Chapter = settings.Chapter;
             this.Phase = settings.Phase;
-            this.PathToFolder = settings.PathToSaveModels;
+            this.PathToSaveFolder = settings.PathToSaveModels;
         }
         #endregion
     }

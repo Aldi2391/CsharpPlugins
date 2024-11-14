@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using SQLitePCL;
 using System.Windows;
 using System.Linq;
+using SharedModelUnloader.Views.Windows;
 
 namespace SharedModelUnloader.ViewModels
 {
@@ -84,7 +85,25 @@ namespace SharedModelUnloader.ViewModels
         }
         private void OnPublishCommandExecuted(object parameter)
         {
+            Window currentWindow = (Window)parameter;
+            currentWindow.Close();
 
+            var filteredModels = new ObservableCollection<OutputModel>();
+
+            // Заполнение данных
+            foreach (var model in OutputModels)
+            {
+                if (model.IsSelected)
+                {
+                    filteredModels.Add(model);
+                }
+            }
+
+            var publishWindow = new PublishWindow()
+            {
+                DataContext = new PublishWindowViewModel(LoadingSettings, filteredModels)
+            };
+            publishWindow.ShowDialog();
         }
         #endregion
 
@@ -107,6 +126,10 @@ namespace SharedModelUnloader.ViewModels
 
 
         #region Вспомогательные функции
+       /// <summary>
+       /// Получение моделей для выгрузки
+       /// </summary>
+       /// <returns>Список моделей для выгрузки</returns>
         private ObservableCollection<OutputModel> GetOutputModels()
         {
             ObservableCollection<OutputModel> outData = new ObservableCollection<OutputModel>();

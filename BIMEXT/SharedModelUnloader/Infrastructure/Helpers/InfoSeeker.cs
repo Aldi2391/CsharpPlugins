@@ -2,6 +2,7 @@
 using SharedModelUnloader.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -100,6 +101,18 @@ namespace SharedModelUnloader.Infrastructure.Helpers
                 }
             }
             return outData;
+        }
+
+
+        /// <summary>
+        /// Генерация текущей даты
+        /// </summary>
+        /// <returns>Текущая дата в виде строки в формате yyyy.MM.dd HH:mm:ss</returns>
+        public static string GetCurrentDateTime()
+        {
+            DateTime now = DateTime.Now;
+            string formattedDate = now.ToString("yyyy.MM.dd HH:mm:ss", CultureInfo.InvariantCulture);
+            return formattedDate;
         }
     }
 }

@@ -29,14 +29,14 @@ namespace SharedModelUnloader.Infrastructure.Helpers
 
                         if (latestRecord != null)
                         {
-                            if (latestRecord.ModelVersion > model.Version)
-                            {
-                                model.Version = latestRecord.ModelVersion;
-                                model.Author = latestRecord.UserName;
-                                model.AuthorEmail = latestRecord.UserEmail;
-                                model.Description = latestRecord.ModelDescription;
-                                model.Date = latestRecord.PublishDate;
-                            }
+
+                            model.Version = latestRecord.ModelVersion;
+                            model.Author = latestRecord.UserName;
+                            model.AuthorEmail = latestRecord.UserEmail;
+                            model.Description = latestRecord.ModelDescription;
+                            model.Date = latestRecord.PublishDate;
+                            model.PathToFileInShared  = latestRecord.PathToFileInShared;
+                           
                         }
                         else
                         {
@@ -45,6 +45,7 @@ namespace SharedModelUnloader.Infrastructure.Helpers
                             model.AuthorEmail = "-";
                             model.Description = "Не публиковалась";
                             model.Date = "-";
+                            model.PathToFileInShared = "-";
                         }
                     }
                     catch
@@ -92,17 +93,10 @@ namespace SharedModelUnloader.Infrastructure.Helpers
 
                 if (flagToAdd)
                 {
-                    int version = 0;
-                    string description = null;
-                    string date = null;
                     string modelPathToRS = CreateModelPathToServer(modelPath, settings);
 
                     var outputModel = new OutputModel(
                         currentModelName, 
-                        version, 
-                        description, 
-                        date, 
-                        userName,
                         modelPathToRS,
                         settings
                     );
@@ -110,7 +104,6 @@ namespace SharedModelUnloader.Infrastructure.Helpers
                     outData.Add(outputModel);
                 }
             }
-
             return outData;
         }
 
